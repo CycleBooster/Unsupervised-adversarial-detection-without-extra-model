@@ -1,0 +1,22 @@
+{
+    "attack_strength":[
+        {
+            "epsilon":8,
+            "update_rate":2,
+            "update_steps":100
+        },
+        {
+            "epsilon":16,
+            "update_rate":2,
+            "update_steps":100
+        }
+    ],
+    "attack_type":{
+        "AUTO":false,
+        "FGSM":true,
+        "BIM":true,
+        "PGD":true,
+        "DEEPFOOL_inf":false,
+        "DEEPFOOL_unlimited":true
+    }
+}
