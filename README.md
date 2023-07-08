@@ -95,6 +95,6 @@ For adversarial detection evaluation, replacing "MyResnet" with the customized m
 
 ## Using different dataset
 
-This project uses tensorflow datasets. If you want to change datasets, just change "dataset_name" from "cifar10" to the dataset you want. The dataset should be supported by [tensorflow datasets](https://www.tensorflow.org/datasets/catalog/overview#all_datasetshttps:/).
+This project uses tensorflow datasets. If you want to change datasets, just change "dataset_name" from "cifar10" to the dataset you want. The dataset should be supported by [tensorflow datasets](https://www.tensorflow.org/datasets/catalog/overview#all_datasets).
 
 ## Citation
