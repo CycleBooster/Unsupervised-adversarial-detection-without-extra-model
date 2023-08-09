@@ -1,12 +1,23 @@
 # Unsupervised Adversarial Detection without Extra Model
 
-This project is the source code of "Unsupervised Adversarial Detection without Extra Model: Training Loss Should Change" and is implemented by tensorflow.
+This project is the source code of "[Unsupervised Adversarial Detection without Extra Model: Training Loss Should Change](https://arxiv.org/abs/2308.03243)" and is implemented by tensorflow.
 
 The proposed adversarial detection method is the first unsupervised method using only the original classification model (the target model for adversarial attacks), unlike most methods with extra models and weights. We find that the behavior of cross entropy loss creates redundant features and gives more clues for adversarial attacks. Therefore, we change the training loss and train with part of adversarial samples to remove the one-hot output trend. After the proposed training, the classification model can also detect adversarial samples from unknown attack types by only the target model's raw outputs, the outputs before softmax.
 
 The proposed training loss won't decrease the accuracy of the origin classification task, and the overhead of methods with extra model is eliminated. The only overhead is training time, about 1.5 times, but it can be further reduced by decreasing the ratio of adversarial samples or fewer attack updates. We didn't try to reduce training time more because it was low enough.
 
 This project works in Win10, and will work in linux as well in the future.
+
+## How does the proposed method work?
+
+The proposed training avoids the outputs unrelated to the inputs (**false outputs** in the paper) from being attacked, so only the outputs related to the inputs (**true outputs** in the paper) can be attacked.
+
+![](assets/20230809_163908_fig_1_how_proposed_method_works.png)
+
+When adversarial attacks happen, the true raw output is pressed down with false outputs kept still. Therefore, we can detect adversarial samples by simply checking the distribution of raw outputs by two thresholds. If the maximum raw output is too low or the minimum raw output is too low, the input is the adversarial attacks.
+
+
+![](assets/20230809_170632_fig_2_why_proposed_method_works.png)
 
 ## Comparison with other unsupervised adversarial detection methods
 
@@ -96,5 +107,3 @@ For adversarial detection evaluation, replacing "MyResnet" with the customized m
 ## Using different dataset
 
 This project uses tensorflow datasets. If you want to change datasets, just change "dataset_name" from "cifar10" to the dataset you want. The dataset should be supported by [tensorflow datasets](https://www.tensorflow.org/datasets/catalog/overview#all_datasets).
-
-## Citation

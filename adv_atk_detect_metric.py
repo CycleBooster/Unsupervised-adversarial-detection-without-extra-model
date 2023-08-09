@@ -65,6 +65,7 @@ class AdvTestEachClassHandle(AdversarialTrainHandle):
         origin_acc = np.mean(id_result_dict["correct"])
         print("origin acc=", origin_acc)
         
+        #draw distribution
         data_result_dict = {
             "atk_false":correct_result_dict["atk_raw_false"],
             "atk_true":correct_result_dict["atk_raw_true"],
@@ -94,6 +95,36 @@ class AdvTestEachClassHandle(AdversarialTrainHandle):
         }
         distribution_draw(PltQuantityPlot, data_result_dict, setting_dict, 
             save_dir+"_raw_distrbution.png", **plot_info)
+
+        data_result_dict = {
+            "atk_false_max":correct_result_dict["atk_raw_false_max"],
+            "atk_true":correct_result_dict["atk_raw_true"],
+            "false_max":correct_result_dict["raw_false_max"],
+            "true":correct_result_dict["raw_true"],
+        }
+        
+        setting_dict = {
+                "atk_false_max":{
+                    "color":"red",
+                },
+                "atk_true":{
+                    "color":"blue",
+                },
+                "false_max":{
+                    "color":"black",
+                },
+                "true":{
+                    "color":"green",
+                },
+            }
+        plot_info = {
+            "bin_width":0.1, 
+            # x_range:(-10, 10),
+            "x_label":"raw output",
+            "y_label":"numbers in ratio",
+        }
+        distribution_draw(PltQuantityPlot, data_result_dict, setting_dict, 
+            save_dir+"_detect_raw_distrbution.png", **plot_info)
 
 
         #get auroc for maximum threshold
@@ -306,7 +337,7 @@ if __name__ == "__main__":
 
     #set up model
     train_handle = AdvTestEachClassHandle(class_count=num_classes, input_shape=input_shape)
-    save_dir = "./train/"+train_handle.model_name+" "+dataset_name+" proposed/"
+    save_dir = "./train/"+train_handle.model_name+" "+dataset_name+"/"
     train_handle.load_weight(save_dir, 59)
 
     info = {
